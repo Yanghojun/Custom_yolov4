@@ -253,6 +253,8 @@ class Yolo_dataset(Dataset):
         self.train = train
 
         truth = {}
+        lable_path = os.path.join('train', lable_path)
+        print("lable path: " + lable_path)
         f = open(lable_path, 'r', encoding='utf-8')
         for line in f.readlines():
             data = line.split(" ")
@@ -423,11 +425,14 @@ def get_image_id(filename:str) -> int:
     >>> no = f"{int(no):04d}"
     >>> return int(lv+no)
     """
-    raise NotImplementedError("Create your own 'get_image_id' function")
-    lv, no = os.path.splitext(os.path.basename(filename))[0].split("_")
-    lv = lv.replace("level", "")
-    no = f"{int(no):04d}"
-    return int(lv+no)
+    # raise NotImplementedError("Create your own 'get_image_id' function")
+    # print("filename: " + filename)
+    filename = filename[:-4]
+    return int(filename)
+    # lv, no = os.path.splitext(os.path.basename(filename))[0].split("_")
+    # lv = lv.replace("level", "")
+    # no = f"{int(no):04d}"
+    # return int(lv+no)
 
 
 if __name__ == "__main__":

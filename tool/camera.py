@@ -12,6 +12,10 @@
 '''
 from __future__ import division
 import cv2
+import sys
+import os
+
+sys.path.append(os.getcwd())
 from tool.darknet2pytorch import Darknet
 import argparse
 from tool.utils import *
@@ -35,15 +39,18 @@ def arg_parse():
 
 if __name__ == '__main__':
     cfgfile = "cfg/yolov4.cfg"
-    weightsfile = "weight/yolov4.weights"
+    # weightsfile = "weight/yolov4.weights"
+    weightsfile = "checkpoints/Yolov4_epoch20.pth"
 
     args = arg_parse()
     confidence = float(args.confidence)
     nms_thesh = float(args.nms_thresh)
     CUDA = torch.cuda.is_available()
-    num_classes = 80
+    # num_classes = 80
+    num_classes = 2
     bbox_attrs = 5 + num_classes
-    class_names = load_class_names("data/coco.names")
+    # class_names = load_class_names("data/coco.names")
+    class_names = load_class_names("data/x.names")
 
     model = Darknet(cfgfile)
     model.load_weights(weightsfile)
@@ -65,7 +72,7 @@ if __name__ == '__main__':
             sized = cv2.cvtColor(sized, cv2.COLOR_BGR2RGB)
             boxes = do_detect(model, sized, 0.5, 0.4, CUDA)
 
-            orig_im = plot_boxes_cv2(frame, boxes, class_names=class_names)
+            orig_im = plot_boxes_cv2(frame, boxes[0], class_names=class_names)
 
             cv2.imshow("frame", orig_im)
             key = cv2.waitKey(1)

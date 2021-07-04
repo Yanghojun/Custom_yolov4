@@ -151,10 +151,11 @@ def get_args():
 
 if __name__ == '__main__':
     args = get_args()
-    if args.imgfile:
-        detect_cv2(args.cfgfile, args.weightfile, args.imgfile)
-        # detect_imges(args.cfgfile, args.weightfile)
-        # detect_cv2(args.cfgfile, args.weightfile, args.imgfile)
-        # detect_skimage(args.cfgfile, args.weightfile, args.imgfile)
-    else:
-        detect_cv2_camera(args.cfgfile, args.weightfile)
+    detect_cv2_camera(args.cfgfile, args.weightfile)
+    # if args.imgfile:
+    #     detect_cv2(args.cfgfile, args.weightfile, args.imgfile)
+    #     # detect_imges(args.cfgfile, args.weightfile)
+    #     # detect_cv2(args.cfgfile, args.weightfile, args.imgfile)
+    #     # detect_skimage(args.cfgfile, args.weightfile, args.imgfile)
+    # else:
+    #     detect_cv2_camera(args.cfgfile, args.weightfile)
